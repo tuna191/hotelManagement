@@ -38,5 +38,14 @@ public class Client {
         }
         return false;
     }
+    public String getPassWord(){
+        try {
+            return AdminMana.getPassWord();
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 

@@ -15,7 +15,30 @@ public class AdminImplement extends UnicastRemoteObject implements AdminInterfac
         super();
         //TODO Auto-generated constructor stub
     }
+    @Override
+    public String getPassWord() throws RemoteException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String result = null;
+    
+        try {
+            conn = JDBC.getConnection();
+            String sql = "SELECT password FROM account";
+            stmt = conn.prepareStatement(sql);
+    
+            rs = stmt.executeQuery();
+            if (rs.next()) { // Di chuyển con trỏ tới dòng đầu tiên của kết quả (nếu có)
+                result = rs.getString("password");
+                
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
 
+        return result;
+    }
     @Override
     public boolean resetPassWord(String password) throws RemoteException {
         Connection conn = null;
