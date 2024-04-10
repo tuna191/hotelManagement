@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,7 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import controller.Client;
+import View.MainForm;
+
+import Controller.Client;
 
 public class LoginDialog extends JDialog {
 
@@ -60,7 +62,7 @@ public class LoginDialog extends JDialog {
         contentPanel.add(rightPanel, BorderLayout.CENTER);
         rightPanel.setLayout(null);
 
-        JLabel lbl_titleDangNhapHeThong = new JLabel("ĐĂNG NHẬP HỆ THỐNG");
+        JLabel lbl_titleDangNhapHeThong = new JLabel("ĐĂNG NHẬP");
         lbl_titleDangNhapHeThong.setForeground(new Color(0, 128, 255));
         lbl_titleDangNhapHeThong.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_titleDangNhapHeThong.setFont(new Font("DialogInput", Font.BOLD, 28));
@@ -152,7 +154,7 @@ public class LoginDialog extends JDialog {
             String pass = new String(passwordField.getPassword());
             
             if (client.logIn(name, pass)) {
-                MainForm main = new MainForm();
+                MainForm main = new MainForm(client);
                 main.setVisible(true);
                 dispose();
             } else {

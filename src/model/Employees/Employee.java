@@ -1,4 +1,4 @@
-package model.Employees;
+package Model.Employees;
 
 import java.io.Serializable;
 

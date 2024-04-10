@@ -1,4 +1,4 @@
-package model.Administrator;
+package Model.Administrator;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package model.room;
+package Model.room;
 
 import java.io.Serializable;
 
@@ -6,17 +6,17 @@ public class Room implements Serializable {
     private static final long serialVersionUID = 1L;
     private String idRoom;
     private String kind;
-    private String state;
+    private String status;
     private double price;
     private String idCustomer;
     private String idEmp;
 
     public Room() {}
 
-    public Room(String idRoom, String kind, String state, double price, String idCustomer, String idEmp) {
+    public Room(String idRoom, String kind, String status, double price, String idCustomer, String idEmp) {
         this.idRoom = idRoom;
         this.kind = kind;
-        this.state = state;
+        this.status = status;
         this.price = price;
         this.idCustomer = idCustomer;
         this.idEmp = idEmp;
@@ -31,8 +31,8 @@ public class Room implements Serializable {
         this.kind = kind;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setPrice(double price) {
@@ -56,8 +56,8 @@ public class Room implements Serializable {
         return kind;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
     public double getPrice() {

@@ -1,11 +1,12 @@
-package view;
+package View;
 
 import java.util.List;
+
+import Model.room.Room;
+import Model.room.RoomImplement;
+
 import java.awt.*;
 import java.rmi.RemoteException;
-
-import model.room.Room;
-import model.room.RoomImplement;
 public class App {
 
    

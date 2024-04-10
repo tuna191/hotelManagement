@@ -1,4 +1,4 @@
-package model.Administrator;
+package Model.Administrator;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.JDBC;
+import Model.JDBC;
 
 public class AdminImplement extends UnicastRemoteObject implements AdminInterface {
     private static final long serialVersionUID = 1L;

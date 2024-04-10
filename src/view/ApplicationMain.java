@@ -1,9 +1,9 @@
-package view;
+package View;
 
 import javax.swing.JDialog;
 
-import controller.Client;
-import controller.Server;
+import Controller.Client;
+import Controller.Server;
 
 public class ApplicationMain {
 	public static void main(String[] args) {

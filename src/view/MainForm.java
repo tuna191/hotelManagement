@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,7 +86,7 @@ public class MainForm extends JFrame {
                     case "Logout":
                         // Thêm code xử lý cho chức năng logout ở đây
                         // Ví dụ:
-                        JOptionPane.showMessageDialog(MainForm.this, "Đăng xuất thành công!");
+                        // JOptionPane.showMessageDialog(MainForm.this, "Đăng xuất thành công!");
                         LoginDialog dialog = new LoginDialog(client);
                         dialog.setVisible(true);
                         dispose();

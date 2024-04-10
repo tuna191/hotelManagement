@@ -1,4 +1,4 @@
-package model.room;
+package Model.room;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -11,15 +11,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.JDBC;
+
 public class RoomImplement extends UnicastRemoteObject implements RoomInterface {
     private static final long serialVersionUID = 1L;
 
     public RoomImplement() throws RemoteException{
 
     }
-    public static RoomImplement getInstance() throws RemoteException{
-        return new RoomImplement();
-    }
+    // public static RoomImplement getInstance() throws RemoteException{
+    //     return new RoomImplement();
+    // }
 
     @Override
     public List<Room> getAllRoom() throws RemoteException {
@@ -38,7 +40,7 @@ public class RoomImplement extends UnicastRemoteObject implements RoomInterface 
                 Room room = new Room();
                 room.setIdRoom(rs.getString("idRoom"));
                 room.setKind(rs.getString("kind"));
-                room.setState(rs.getString("state"));
+                room.setStatus(rs.getString("state"));
                 room.setPrice(rs.getDouble("price"));
                 room.setIdCustomer(rs.getString("idCustomer"));
                 room.setIdEmp(rs.getString("idEmp"));
@@ -69,7 +71,7 @@ public class RoomImplement extends UnicastRemoteObject implements RoomInterface 
                 Room room = new Room();
                 room.setIdRoom(rs.getString("idRoom"));
                 room.setKind(rs.getString("kind"));
-                room.setState(rs.getString("state"));
+                room.setStatus(rs.getString("state"));
                 room.setPrice(rs.getDouble("price"));
                 room.setIdCustomer(rs.getString("idCustomer"));
                 room.setIdEmp(rs.getString("idEmp"));
@@ -93,7 +95,7 @@ public class RoomImplement extends UnicastRemoteObject implements RoomInterface 
             stmt = conn.prepareStatement(sql);
                 stmt.setString(1,room.getIdRoom());
                 stmt.setString(2,room.getKind());
-                stmt.setString(3,room.getState());
+                stmt.setString(3,room.getStatus());
                 stmt.setDouble(4,room.getPrice());
                 stmt.setString(5,room.getIdCustomer());
                 stmt.setString(6,room.getIdEmp());
@@ -115,7 +117,7 @@ public class RoomImplement extends UnicastRemoteObject implements RoomInterface 
             String sql = "UPDATE room SET kind= ?,state= ?,price= ?,idCustomer= ?,idEmp= ? WHERE idRoom = ? ";
             stm = conn.prepareStatement(sql);
             stm.setString(1, s.getKind());
-            stm.setString(2, s.getState());
+            stm.setString(2, s.getStatus());
             stm.setDouble(3, s.getPrice());
             stm.setString(4, s.getIdCustomer());
             stm.setString(5, s.getIdEmp());
