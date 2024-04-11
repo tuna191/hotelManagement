@@ -1,4 +1,4 @@
-package model.Bill;
+package Model.Bill;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

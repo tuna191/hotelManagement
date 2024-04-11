@@ -106,6 +106,13 @@ public class MainForm extends JFrame {
                         });
                         //JOptionPane.showMessageDialog(MainForm.this, "Reset mật khẩu thành công!");
                         break;
+                        case "Phòng":
+                        // Thêm code xử lý cho chức năng reset password ở đây
+                        // Ví dụ:
+                        RoomForm RoomLog = new RoomForm(client);
+                        RoomLog.setVisible(true);
+                        
+                        break;
                     default:
                         JOptionPane.showMessageDialog(MainForm.this, "Đã chọn: " + items[j]);
                         break;

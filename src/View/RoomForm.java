@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controller.Server;
 import Controller.Client;
-
+import Model.Employees.Employee;
 import Model.room.Room;
 
 import java.awt.*;
@@ -24,7 +24,6 @@ public class RoomForm extends JFrame {
     private static JComboBox<String> custommer;
     private static JComboBox<String> employee;
 
-
     private static JButton add;
     private static JButton delete;
     private static JButton select;
@@ -40,7 +39,7 @@ public class RoomForm extends JFrame {
     private void initialize() {
         // Khởi tạo JFrame hiện tại thay vì tạo một JFrame mới
         setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
@@ -55,7 +54,7 @@ public class RoomForm extends JFrame {
         inputPanel.setBounds(20, 20, 951, 297);
         inputPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), null, null, null));
         getContentPane().add(inputPanel);
-        inputPanel.setLayout(new GridLayout(2,1, 0, 0));
+        inputPanel.setLayout(new GridLayout(2, 1, 0, 0));
 
         // Code tạo các thành phần inputPanel ở đây
 
@@ -96,6 +95,17 @@ public class RoomForm extends JFrame {
         idEmplField.setBounds(24, 102, 86, 53);
         input.add(idEmplField);
 
+        // String[] empArr; // Declare empArr outside the loop
+
+        // List<Employee> empList = client.getEmployeeList(); // Use empList for clarity
+
+        // empArr = new String[empList.size()]; // Allocate memory for empArr
+
+        // int i = 0;
+        // for (Employee employee : empList) {
+        //     empArr[i++] = employee.getIdEmp(); // Add ID to empArr and increment index
+        // }
+
         String[] emplArr = { "", "1445", "222" };
         employee = new JComboBox<>(emplArr);
         employee.setBounds(146, 104, 322, 60);
@@ -110,7 +120,6 @@ public class RoomForm extends JFrame {
         status.setBounds(146, 65, 322, 60);
         input.add(status);
 
-
         JLabel lblNewLabel_3 = new JLabel("Gia Phong");
         lblNewLabel_3.setBounds(478, 0, 73, 60);
         input.add(lblNewLabel_3);
@@ -120,16 +129,6 @@ public class RoomForm extends JFrame {
         input.add(price);
         price.setColumns(10);
 
-
-
-
-
-
-
-
-
-
-
         JPanel button = new JPanel();
         inputPanel.add(button);
         button.setLayout(null);
@@ -138,7 +137,6 @@ public class RoomForm extends JFrame {
         add.setBounds(65, 49, 130, 40);
         button.add(add);
 
-        
         add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -150,7 +148,7 @@ public class RoomForm extends JFrame {
                     String selectedEmpl = (String) employee.getSelectedItem();
                     double priceData = Double.parseDouble(price.getText());
 
-                    Room room = new Room(idPhong, selectedKind, selectedStatus, priceData,selectedCus,selectedEmpl);
+                    Room room = new Room(idPhong, selectedKind, selectedStatus, priceData, selectedCus, selectedEmpl);
 
                     boolean addMethod = client.addRoomClient(room);
                     if (addMethod) {
@@ -182,7 +180,7 @@ public class RoomForm extends JFrame {
                     String selectedEmpl = (String) employee.getSelectedItem();
                     double priceData = Double.parseDouble(price.getText());
 
-                    Room room = new Room(idPhong, selectedKind, selectedStatus, priceData,selectedCus,selectedEmpl);
+                    Room room = new Room(idPhong, selectedKind, selectedStatus, priceData, selectedCus, selectedEmpl);
 
                     boolean updateMethod = client.updateRoomClient(room);
                     if (updateMethod) {
@@ -208,7 +206,7 @@ public class RoomForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String idPhong = maPhong.getText();
-                    
+
                     boolean deleteMethod = client.deleteRoomClient(idPhong);
                     if (deleteMethod) {
                         JOptionPane.showMessageDialog(RoomForm.this, " thành công");
@@ -224,7 +222,6 @@ public class RoomForm extends JFrame {
                 }
             }
         });
-        
 
         select = new JButton("Tim kiem");
         select.setBounds(677, 49, 130, 40);
@@ -236,11 +233,11 @@ public class RoomForm extends JFrame {
                 try {
                     String idPhong = maPhong.getText();
 
-                    List<Room>  data = client.getRoomClient(idPhong);
+                    List<Room> data = client.getRoomClient(idPhong);
                     if (data != null) {
                         updateList(data, true);
-                      
-                   }  else {
+
+                    } else {
                         JOptionPane.showMessageDialog(RoomForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
@@ -280,11 +277,11 @@ public class RoomForm extends JFrame {
 
             // Thêm header vào render
             String[] columnNames = { "Ma phong", "Kind", "Status", "Price", "idCustommer", "idEmployee" };
-            
+
             DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
             JTable table = new JTable(tableModel);
             table.setFont(new Font("Dialog", Font.PLAIN, 15));
-            
+
             // Set kích thước ưu tiên cho các cột
             table.getColumnModel().getColumn(0).setPreferredWidth(100); // Ma phong
             table.getColumnModel().getColumn(1).setPreferredWidth(200); // Kind
@@ -293,16 +290,16 @@ public class RoomForm extends JFrame {
             table.getColumnModel().getColumn(4).setPreferredWidth(100); // idCustomer
             table.getColumnModel().getColumn(5).setPreferredWidth(100); // idEmployee
 
-
             // Thêm các phòng vào render
             for (Room room : rooms) {
-                Object[] rowData = { room.getIdRoom(), room.getKind(), room.getStatus(), room.getPrice(), room.getIdCustomer(), room.getIdEmp()};
+                Object[] rowData = { room.getIdRoom(), room.getKind(), room.getStatus(), room.getPrice(),
+                        room.getIdCustomer(), room.getIdEmp() };
                 tableModel.addRow(rowData);
             }
 
             // Thêm table vào renderPanel
             JScrollPane scrollPane = new JScrollPane(table);
-            render.add(scrollPane, BorderLayout.CENTER); 
+            render.add(scrollPane, BorderLayout.CENTER);
             render.revalidate();
             render.repaint();
         } catch (Exception e) {

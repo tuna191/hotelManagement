@@ -1,4 +1,4 @@
-package model.Bill;
+package Model.Bill;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

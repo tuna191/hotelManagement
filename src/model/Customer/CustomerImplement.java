@@ -1,4 +1,4 @@
-package model.Customer;
+package Model.Customer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
