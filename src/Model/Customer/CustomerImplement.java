@@ -37,7 +37,7 @@ public class CustomerImplement extends UnicastRemoteObject implements CustomerIn
                 customers.setSex(rs.getString("sex"));
                 customers.setIdentify(rs.getInt("identify"));
                 customers.setPhone(rs.getInt("phone"));
-                customers.add(customers);
+                customer.add(customers);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class CustomerImplement extends UnicastRemoteObject implements CustomerIn
                 customers.setSex(rs.getString("sex"));
                 customers.setIdentify(rs.getInt("identify"));
                 customers.setPhone(rs.getInt("phone"));
-                customers.add(customers);
+                customer.add(customers);
             }
         } catch (SQLException e) {
             // TODO: handle exception
@@ -101,7 +101,6 @@ public class CustomerImplement extends UnicastRemoteObject implements CustomerIn
         return result;
     }
 
-    @Override
     public boolean removeCustomer(String idcustomer) throws RemoteException {
         Connection conn = null;
         PreparedStatement stm = null;
@@ -130,7 +129,7 @@ public class CustomerImplement extends UnicastRemoteObject implements CustomerIn
             String sql = "UPDATE customer SET name = ? , address = ? , sex = ?,identify = ?,phone = ? WHERE idcustomer = ? "; 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,customer.getName());
-            stmt.setString(2,customer.getAddress());
+            stmt.setString(2,customer.getAdress());
             stmt.setString(3,customer.getSex());
             stmt.setInt(4,customer.getIdentify());
             stmt.setInt(5,customer.getPhone());
@@ -143,6 +142,13 @@ public class CustomerImplement extends UnicastRemoteObject implements CustomerIn
 
         return result;
     }
+
+	@Override
+	public boolean removeCustomer(Customer idcustomer) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
     
 }
+
 

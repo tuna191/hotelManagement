@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Model.JDBC;
-public class BillDetailImplement extends UnicastRemoteObject implements BillDetailInterface {
+public class BillImplement extends UnicastRemoteObject implements BillInterface {
     private static final long serialVersionUID = 1L;
-    public BillDetailImplement() throws RemoteException {
+    public BillImplement() throws RemoteException {
         super();
         //TODO Auto-generated constructor stub
     }
@@ -22,75 +22,74 @@ public class BillDetailImplement extends UnicastRemoteObject implements BillDeta
      * @throws RemoteException
      */
     @Override
-    public List<Bill> getBillDetail(String idDetail) throws RemoteException {
-        List<BillDetail> detail = new ArrayList<>();
+    public List<Bill> getBill(String idBill) throws RemoteException {
+        List<Bill> bill = new ArrayList<>();
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
         try {
             conn = JDBC.getConnection();
-            String sql = "SELECT * FROM detailBill where idBill = " + idDetail;
+            String sql = "SELECT * FROM bill where idBill = " + idBill;
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                BillDetail details = new BillDetail();
-              details.setIdDetail(rs.getString("idDetail"));
-              details.setdate(rs.getString("date"));
-              details.setIdRoom(rs.getString("idRoom"));
-              details.idBill(rs.getString("idBill"));
+                Bill bills = new Bill();
+                bills.setIdBill(rs.getString("idBill"));
+                bills.setDate(rs.getDate("date"));
+                bills.setPrice(rs.getDouble("price"));
+                bills.setIdEmp(rs.getString("idEmp"));
                
-                detailss.add(details);
+                bill.add(bills);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return detail;
+        return bill;
     }
 
     @Override
-    public List<Bill> getAllBillDetail() throws RemoteException {
-        List<BillDetail> detail = new ArrayList<BillDetail>();
+    public List<Bill> getAllBill() throws RemoteException {
+        List<Bill> bill = new ArrayList<Bill>();
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         try {
             conn = JDBC.getConnection();
-            String sql = "SELECT * FROM detailBill ";
+            String sql = "SELECT * FROM bill ";
             stm = conn.prepareStatement(sql);
             rs = stm.executeQuery();
 
             while (rs.next()) {
-                BillDetail details = new BillDetail();
-              details.setIdDetail(rs.getString("idDetail"));
-              details.setdate(rs.getString("date"));
-              details.setIdRoom(rs.getString("idRoom"));
-              details.idBill(rs.getString("idBill"));
-              details.add(details);
+                Bill bills = new Bill();
+                bills.setIdBill(rs.getString("idBill"));
+                bills.setDate(rs.getDate("date"));
+                bills.setPrice(rs.getDouble("price"));
+                bills.setIdEmp(rs.getString("idEmp"));
             }
         } catch (SQLException e) {
             // TODO: handle exception
             e.printStackTrace();
         }
 
-        return detail;
+        return bill;
     }
 
     @Override
-    public boolean addBillDetail(BillDetail detail) throws RemoteException {
+    public boolean addBill(Bill bill) throws RemoteException {
         Connection conn = null;
         PreparedStatement stmt = null;
         boolean result = false;
         
         try {
             conn = JDBC.getConnection();
-            String sql = "INSERT INTO detailBill Values(?,?,?,?)";
+            String sql = "INSERT INTO bill Values(?,?,?,?)";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,detail.getIddetail());
-            stmt.setDate(2,detail.getDate());
-            stmt.setString(3,detail.getIdRoom());
-            stmt.setString(4,detail.getIdBill());
+            stmt.setString(1,bill.getIdBill() );
+            stmt.setDate(2,bill.getDate() );
+            stmt.setDouble(3,bill.getPrice() );
+            stmt.setString(4,bill.getIdEmp() );
             int rowsAffected = stmt.executeUpdate();
             result = rowsAffected > 0;
         } catch (SQLException e) {
@@ -102,13 +101,13 @@ public class BillDetailImplement extends UnicastRemoteObject implements BillDeta
     }
 
     @Override
-    public boolean removeBillDetail(String idDetail) throws RemoteException {
+    public boolean removeBill(String idBill) throws RemoteException {
         Connection conn = null;
         PreparedStatement stm = null;
         boolean result = false;
         try {
             conn = JDBC.getConnection();
-            String sql = "DELETE FROM detailBill WHERE idDetail = " + idDetail;
+            String sql = "DELETE FROM bill WHERE idBill = " + idBill;
             stm = conn.prepareStatement(sql);
             int rowsAffected = stm.executeUpdate();
             result = rowsAffected > 0;
@@ -121,15 +120,16 @@ public class BillDetailImplement extends UnicastRemoteObject implements BillDeta
     }
 
     @Override
-    public boolean updateBillDetail(BillDetail detail) throws RemoteException {
+    public boolean updateBill(Bill bill) throws RemoteException {
         Connection conn = null;
         PreparedStatement stmt = null;
         boolean result = false;
         try {
             conn = JDBC.getConnection();
-            String sql = "UPDATE detailBill SET date = ?  WHERE idDetail = ? "; 
+            String sql = "UPDATE bill SET date = ? , price = ?  WHERE idBill = ? "; 
             stmt = conn.prepareStatement(sql);
-            stmt.setDate(1,bill.getdate() );
+            stmt.setDate(1,bill.getDate());
+            stmt.setDouble(2,bill.getPrice());
             int rowsAffected = stmt.executeUpdate();
             result = rowsAffected > 0;
         } catch (SQLException e) {
@@ -141,3 +141,5 @@ public class BillDetailImplement extends UnicastRemoteObject implements BillDeta
     }
     
 }
+
+
