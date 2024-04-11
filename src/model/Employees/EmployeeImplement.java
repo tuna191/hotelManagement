@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import Model.JDBC;
 public class EmployeeImplement extends UnicastRemoteObject implements EmployeeInterface {
     private static final long serialVersionUID = 1L;
