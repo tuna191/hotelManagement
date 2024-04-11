@@ -1,6 +1,7 @@
-package model.Employees;
+package Model.Employees;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -9,11 +10,11 @@ public class Employee implements Serializable {
     private String nameEmp;
     private String address;
     private String sex;
-    private String birth;
+    private Date birth;
     private int phone;
     public Employee() {
     }
-    public Employee(String idEmp, String nameEmp, String address, String sex, String birth, int phone) {
+    public Employee(String idEmp, String nameEmp, String address, String sex, Date birth, int phone) {
         this.idEmp = idEmp;
         this.nameEmp = nameEmp;
         this.address = address;
@@ -48,10 +49,10 @@ public class Employee implements Serializable {
     public void setSex(String sex) {
         this.sex = sex;
     }
-    public String getbirth() {
+    public Date getbirth() {
         return birth;
     }
-    public void setbirth(String birth) {
+    public void setbirth(Date birth) {
         this.birth = birth;
     }
     public int getPhone() {
