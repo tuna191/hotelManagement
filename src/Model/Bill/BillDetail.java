@@ -1,4 +1,4 @@
-package model.Bill;
+package Model.Bill;
 
 import java.io.Serializable;
 import java.sql.Date;

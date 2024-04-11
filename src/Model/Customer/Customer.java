@@ -1,4 +1,4 @@
-package model.Customer;
+package Model.Customer;
 
 import java.io.Serializable;
 import java.sql.Date;

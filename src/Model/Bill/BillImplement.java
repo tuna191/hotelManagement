@@ -1,4 +1,4 @@
-package model.Bill;
+package Model.Bill;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -37,11 +37,11 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             while (rs.next()) {
                 Bill bills = new Bill();
                 bills.setIdBill(rs.getString("idBill"));
-                bills.setdate(rs.getString("date"));
-                bills.setprice(rs.getString("price"));
-                bills.idEmp(rs.getString("idEmp"));
+                bills.setDate(rs.getDate("date"));
+                bills.setPrice(rs.getDouble("price"));
+                bills.setIdEmp(rs.getString("idEmp"));
                
-                bills.add(bills);
+                bill.add(bills);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,10 +64,9 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             while (rs.next()) {
                 Bill bills = new Bill();
                 bills.setIdBill(rs.getString("idBill"));
-                bills.setdate(rs.getString("date"));
-                bills.setprice(rs.getString("price"));
-                bills.idEmp(rs.getString("idEmp"));
-                bills.add(bills);
+                bills.setDate(rs.getDate("date"));
+                bills.setPrice(rs.getDouble("price"));
+                bills.setIdEmp(rs.getString("idEmp"));
             }
         } catch (SQLException e) {
             // TODO: handle exception
@@ -142,3 +141,5 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
     }
     
 }
+
+

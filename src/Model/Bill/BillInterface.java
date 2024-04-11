@@ -1,4 +1,5 @@
-package model.Bill;
+
+package Model.Bill;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
