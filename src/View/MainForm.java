@@ -3,6 +3,10 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import Controller.Client;
 public class MainForm extends JFrame {
     private Client client;
@@ -106,12 +110,15 @@ public class MainForm extends JFrame {
                         });
                         //JOptionPane.showMessageDialog(MainForm.this, "Reset mật khẩu thành công!");
                         break;
-                        case "Phòng":
+                    case "Phòng":
                         // Thêm code xử lý cho chức năng reset password ở đây
                         // Ví dụ:
                         RoomForm RoomLog = new RoomForm(client);
                         RoomLog.setVisible(true);
-                        
+                        break;
+                    case "Nhân Viên":
+                        EmployeeForm employeeFrame = new EmployeeForm(client);
+                        employeeFrame.setVisible(true);
                         break;
                     default:
                         JOptionPane.showMessageDialog(MainForm.this, "Đã chọn: " + items[j]);
@@ -130,7 +137,6 @@ public class MainForm extends JFrame {
         Image newImage = image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         return newImage;
     }
-
     
 }
 

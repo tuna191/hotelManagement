@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.JDBC;
+
 public class EmployeeImplement extends UnicastRemoteObject implements EmployeeInterface {
     private static final long serialVersionUID = 1L;
     public EmployeeImplement() throws RemoteException {
@@ -36,7 +37,7 @@ public class EmployeeImplement extends UnicastRemoteObject implements EmployeeIn
                 employee.setNameEmp(rs.getString("nameEmp"));
                 employee.setAddress(rs.getString("address"));
                 employee.setSex(rs.getString("sex"));
-                employee.setbirth(rs.getString("birth"));
+                employee.setbirth(rs.getDate("birth"));
                 employee.setPhone(rs.getInt("phone"));
                 employees.add(employee);
             }
@@ -64,7 +65,7 @@ public class EmployeeImplement extends UnicastRemoteObject implements EmployeeIn
                 employee.setNameEmp(rs.getString("nameEmp"));
                 employee.setAddress(rs.getString("address"));
                 employee.setSex(rs.getString("sex"));
-                employee.setbirth(rs.getString("birth"));
+                employee.setbirth(rs.getDate("birth"));
                 employee.setPhone(rs.getInt("phone"));
                 employees.add(employee);
             }
@@ -86,12 +87,12 @@ public class EmployeeImplement extends UnicastRemoteObject implements EmployeeIn
             conn = JDBC.getConnection();
             String sql = "INSERT INTO employee Values(?,?,?,?,?,?)";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1,employee.getNameEmp() );
-            stmt.setString(2,employee.getAddress() );
-            stmt.setString(3,employee.getSex() );
-            stmt.setString(4,employee.getbirth() );
-            stmt.setInt(5,employee.getPhone() );
-            stmt.setString(6,employee.getIdEmp() );
+            stmt.setString(2,employee.getNameEmp() );
+            stmt.setString(3,employee.getAddress() );
+            stmt.setString(4,employee.getSex() );
+            stmt.setDate(5,employee.getbirth() );
+            stmt.setInt(6,employee.getPhone() );
+            stmt.setString(1,employee.getIdEmp() );
             int rowsAffected = stmt.executeUpdate();
             result = rowsAffected > 0;
         } catch (SQLException e) {
@@ -109,8 +110,9 @@ public class EmployeeImplement extends UnicastRemoteObject implements EmployeeIn
         boolean result = false;
         try {
             conn = JDBC.getConnection();
-            String sql = "DELETE FROM employee WHERE idEmp = " + idEmp;
+            String sql = "DELETE FROM employee WHERE idEmp = ?" ;
             stm = conn.prepareStatement(sql);
+            stm.setString(1, idEmp);
             int rowsAffected = stm.executeUpdate();
             result = rowsAffected > 0;
         } catch (SQLException e) {
@@ -133,7 +135,7 @@ public class EmployeeImplement extends UnicastRemoteObject implements EmployeeIn
             stmt.setString(1,employee.getNameEmp() );
             stmt.setString(2,employee.getAddress() );
             stmt.setString(3,employee.getSex() );
-            stmt.setString(4,employee.getbirth() );
+            stmt.setDate(4,employee.getbirth() );
             stmt.setInt(5,employee.getPhone() );
             stmt.setString(6,employee.getIdEmp() );
             int rowsAffected = stmt.executeUpdate();
