@@ -47,6 +47,8 @@ public class MainForm extends JFrame {
         JMenu menuTimKiem = new JMenu("Tìm kiếm");
         menuTimKiem.setIcon(new ImageIcon(resizeImage("/icons/glass.png"))); // Thêm biểu tượng cho menu
         menuBar.add(menuTimKiem);
+        createPopupMenu(menuTimKiem, new String[]{"Tìm kiếm phòng"}, 
+                        new String[]{"glass.png"});
         
 
         // Panel chính
@@ -119,6 +121,10 @@ public class MainForm extends JFrame {
                     case "Nhân Viên":
                         EmployeeForm employeeFrame = new EmployeeForm(client);
                         employeeFrame.setVisible(true);
+                        break;
+                    case "Tìm kiếm phòng":
+                        SearchForm searchFrame = new SearchForm(client);
+                        searchFrame.setVisible(true);
                         break;
                     default:
                         JOptionPane.showMessageDialog(MainForm.this, "Đã chọn: " + items[j]);

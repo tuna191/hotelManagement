@@ -308,19 +308,19 @@ public class RoomForm extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Server.StartServer();
-                    Client client = new Client(); // Tạo kết nối mới với máy chủ
-                    RoomForm window = new RoomForm(client);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    // public static void main(String[] args) {
+    //     EventQueue.invokeLater(new Runnable() {
+    //         public void run() {
+    //             try {
+    //                 Server.StartServer();
+    //                 Client client = new Client(); // Tạo kết nối mới với máy chủ
+    //                 RoomForm window = new RoomForm(client);
+    //             } catch (Exception e) {
+    //                 e.printStackTrace();
+    //             }
+    //         }
+    //     });
+    // }
 }
 
 //
