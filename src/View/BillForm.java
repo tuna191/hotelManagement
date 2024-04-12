@@ -8,23 +8,29 @@ import Controller.Server;
 import Controller.Client;
 
 import Model.Bill.Bill;
+import Model.Employees.Employee;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.List;
+import java.util.Properties;
+
+import org.jdatepicker.JDatePanel;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 public class BillForm extends JFrame {
 
     private JPanel render;
     private static JTextField mahd;
+    private JDatePickerImpl datepay;
     private static JTextField sotien;
-    private static JComboBox<String> kind;
-    private static JComboBox<String> status;
-    private static JComboBox<String> custommer;
+    private static JComboBox<String> manv;
     private static JComboBox<String> employee;
-
-
+    
     private static JButton add;
     private static JButton delete;
     private static JButton select;
@@ -44,12 +50,12 @@ public class BillForm extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        GUIROOM();
+        GUIBILL();
         updateList(null, false);
         setVisible(true);
     }
 
-    public void GUIROOM() {
+    public void GUIBILL() {
 
         JPanel inputPanel = new JPanel();
         inputPanel.setBounds(20, 20, 951, 297);
@@ -63,63 +69,60 @@ public class BillForm extends JFrame {
         inputPanel.add(input);
         input.setLayout(null);
 
-        JLabel lblNewLabel = new JLabel("Ma Phong");
+        JLabel lblNewLabel = new JLabel("Ma HD");
         lblNewLabel.setBounds(24, 0, 86, 60);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
         input.add(lblNewLabel);
 
-        maPhong = new JTextField();
-        maPhong.setBounds(146, 11, 320, 40);
-        input.add(maPhong);
-        maPhong.setColumns(10);
+        mahd = new JTextField();
+        mahd.setBounds(146, 11, 320, 40);
+        input.add(mahd);
+        mahd.setColumns(10);
 
-        JLabel lblNewLabel_1 = new JLabel("Loai Phong");
-        lblNewLabel_1.setBounds(480, 65, 94, 60);
-        lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
+        JLabel lblNewLabel_1 = new JLabel("Ngay TT");
+        lblNewLabel_1.setBounds(478, 0, 73, 60);
         input.add(lblNewLabel_1);
 
-        String[] kinds = { "", "Normal", "VIP" };
-        kind = new JComboBox<>(kinds);
-        kind.setBounds(585, 69, 344, 60);
-        input.add(kind);
+        UtilDateModel model = new UtilDateModel();
+        Properties properties = new Properties();
+        properties.put("text.today", "Today");
+        properties.put("text.month", "Month");
+        properties.put("text.year", "Year");
+        JDatePanel datePanel = new JDatePanelImpl(model, properties);
+        datepay = new JDatePickerImpl((JDatePanelImpl) datePanel, new DateLabelFormatter());
+        datepay.setBounds(583, 11, 344, 40); // Thiết lập vị trí và kích thước
+        input.add(datepay);
 
-        JLabel idCusField = new JLabel("Ma khac hang");
-        idCusField.setBounds(480, 102, 94, 53);
-        input.add(idCusField);
+        JLabel lblNewLabel_2 = new JLabel("So Tien");
+        lblNewLabel_2.setBounds(480, 102, 94, 53);
+        lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
+        input.add(lblNewLabel_2);
 
-        String[] cusArr = { "", "1234", "222" }; // đang code cứng
-        custommer = new JComboBox<>(cusArr);
-        custommer.setBounds(585, 104, 344, 60);
-        input.add(custommer);
+        sotien = new JTextField();
+        sotien.setBounds(585, 104, 344, 60);
+        input.add(sotien);
+        sotien.setColumns(10);
 
         JLabel idEmplField = new JLabel("Ma nhan vien");
         idEmplField.setBounds(24, 102, 86, 53);
         input.add(idEmplField);
 
-        String[] emplArr = { "", "1445", "222" };
-        employee = new JComboBox<>(emplArr);
+        String[] empArr; // Declare empArr outside the loop
+
+        List<Employee> empList = client.getAllEmployees(); // Use empList for clarity
+
+        empArr = new String[empList.size()]; // Allocate memory for empArr
+
+        int i = 0;
+        for (Employee employee : empList) {
+            empArr[i++] = employee.getIdEmp(); // Add ID to empArr and increment index
+        }
+
+       
+        employee = new JComboBox<>(empArr);
         employee.setBounds(146, 104, 322, 60);
         input.add(employee);
-
-        JLabel lblNewLabel_2 = new JLabel("Trang Thai");
-        lblNewLabel_2.setBounds(24, 72, 86, 53);
-        input.add(lblNewLabel_2);
-
-        String[] statuses = { "", "Available", "Unavailable" };
-        status = new JComboBox<>(statuses);
-        status.setBounds(146, 65, 322, 60);
-        input.add(status);
-
-
-        JLabel lblNewLabel_3 = new JLabel("Gia Phong");
-        lblNewLabel_3.setBounds(478, 0, 73, 60);
-        input.add(lblNewLabel_3);
-
-        price = new JTextField();
-        price.setBounds(583, 11, 344, 40);
-        input.add(price);
-        price.setColumns(10);
-
+        
         JPanel button = new JPanel();
         inputPanel.add(button);
         button.setLayout(null);
@@ -133,24 +136,21 @@ public class BillForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String idPhong = maPhong.getText();
-                    String selectedKind = (String) kind.getSelectedItem();
-                    String selectedStatus = (String) status.getSelectedItem();
-                    String selectedCus = (String) custommer.getSelectedItem();
+                    String idHD = mahd.getText();
+                    Date selectedDate = new Date(((java.util.Date) datepay.getModel().getValue()).getTime());
+                    double priceData = Double.parseDouble(sotien.getText());
                     String selectedEmpl = (String) employee.getSelectedItem();
-                    double priceData = Double.parseDouble(price.getText());
+                    Bill bill = new Bill (idHD,selectedDate,priceData,selectedEmpl);
 
-                    Room room = new Room(idPhong, selectedKind, selectedStatus, priceData,selectedCus,selectedEmpl);
-
-                    boolean addMethod = client.addRoomClient(room);
+                    boolean addMethod = client.addBills(bill);
                     if (addMethod) {
-                        JOptionPane.showMessageDialog(RoomForm.this, " thành công");
+                        JOptionPane.showMessageDialog(BillForm.this, " thành công");
                         updateList(null, false);
                     } else {
-                        JOptionPane.showMessageDialog(RoomForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(BillForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(RoomForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
+                    JOptionPane.showMessageDialog(BillForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
                             JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -165,24 +165,21 @@ public class BillForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String idPhong = maPhong.getText();
-                    String selectedKind = (String) kind.getSelectedItem();
-                    String selectedStatus = (String) status.getSelectedItem();
-                    String selectedCus = (String) custommer.getSelectedItem();
+                    String idHD = mahd.getText();
+                    Date selectedDate = new Date(((java.util.Date) datepay.getModel().getValue()).getTime());
+                    double priceData = Double.parseDouble(sotien.getText());
                     String selectedEmpl = (String) employee.getSelectedItem();
-                    double priceData = Double.parseDouble(price.getText());
+                    Bill bill = new Bill (idHD,selectedDate,priceData,selectedEmpl);
 
-                    Room room = new Room(idPhong, selectedKind, selectedStatus, priceData,selectedCus,selectedEmpl);
-
-                    boolean updateMethod = client.updateRoomClient(room);
+                    boolean updateMethod = client.updateBills(bill);
                     if (updateMethod) {
-                        JOptionPane.showMessageDialog(RoomForm.this, " thành công");
+                        JOptionPane.showMessageDialog(BillForm.this, " thành công");
                         updateList(null, false);
                     } else {
-                        JOptionPane.showMessageDialog(RoomForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(BillForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(RoomForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
+                    JOptionPane.showMessageDialog(BillForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
                             JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -197,17 +194,17 @@ public class BillForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String idPhong = maPhong.getText();
+                    String idHD = mahd.getText();
                     
-                    boolean deleteMethod = client.deleteRoomClient(idPhong);
+                    boolean deleteMethod = client.deleteBills(idHD);
                     if (deleteMethod) {
-                        JOptionPane.showMessageDialog(RoomForm.this, " thành công");
+                        JOptionPane.showMessageDialog(BillForm.this, " thành công");
                         updateList(null, false);
                     } else {
-                        JOptionPane.showMessageDialog(RoomForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(BillForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(RoomForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
+                    JOptionPane.showMessageDialog(BillForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
                             JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -224,17 +221,17 @@ public class BillForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String idPhong = maPhong.getText();
+                    String idHD = mahd.getText();
 
-                    List<Room>  data = client.getRoomClient(idPhong);
+                    List<Bill>  data = client.getIdBills(idHD);
                     if (data != null) {
                         updateList(data, true);
                       
                    }  else {
-                        JOptionPane.showMessageDialog(RoomForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(BillForm.this, " thất bại", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(RoomForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
+                    JOptionPane.showMessageDialog(BillForm.this, "Vui lòng nhập đúng định dạng dữ liệu", "Lỗi",
                             JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -257,19 +254,19 @@ public class BillForm extends JFrame {
 
     private void updateList(List data, boolean flat) {
         try {
-            List<Room> rooms;
+            List<Bill> bills;
 
             // Xóa hết các thành phần cũ trong render
             render.removeAll();
 
             if (!flat) {
-                rooms = client.getAllRooms();
+                bills = client.getAllBills();
             } else {
-                rooms = data;
+                bills = data;
             }
 
             // Thêm header vào render
-            String[] columnNames = { "Ma phong", "Kind", "Status", "Price", "idCustommer", "idEmployee" };
+            String[] columnNames = { "Ma HD", "Ngay TT", "So Tien", "Ma NV"};
             
             DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
             JTable table = new JTable(tableModel);
@@ -279,14 +276,11 @@ public class BillForm extends JFrame {
             table.getColumnModel().getColumn(0).setPreferredWidth(100); // Ma phong
             table.getColumnModel().getColumn(1).setPreferredWidth(200); // Kind
             table.getColumnModel().getColumn(2).setPreferredWidth(200); // Status
-            table.getColumnModel().getColumn(3).setPreferredWidth(300); // Price
-            table.getColumnModel().getColumn(4).setPreferredWidth(100); // idCustomer
-            table.getColumnModel().getColumn(5).setPreferredWidth(100); // idEmployee
-
+            table.getColumnModel().getColumn(3).setPreferredWidth(300); // Pric
 
             // Thêm các phòng vào render
-            for (Room room : rooms) {
-                Object[] rowData = { room.getIdRoom(), room.getKind(), room.getStatus(), room.getPrice(), room.getIdCustomer(), room.getIdEmp()};
+            for (Bill bill : bills) {
+                Object[] rowData = { bill.getIdBill(),bill.getDateTT(),bill.getPrice(),bill.getIdEmp()};
                 tableModel.addRow(rowData);
             }
 
@@ -307,7 +301,7 @@ public class BillForm extends JFrame {
                 try {
                     Server.StartServer();
                     Client client = new Client(); // Tạo kết nối mới với máy chủ
-                    RoomForm window = new RoomForm(client);
+                    BillForm window = new BillForm(client);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

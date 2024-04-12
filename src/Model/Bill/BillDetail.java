@@ -9,14 +9,20 @@ public class BillDetail implements Serializable {
     private Date date;
     private String idRoom;
     private String idBill;
+    private String idEmp;
 
-    public BillDetail() {
+    public BillDetail (){
+        
     }
-    public BillDetail(String idDetail,Date date, String idRoom,String idBill) {
+    public BillDetail(String idDetail,Date date, String idRoom,String idBill,String idEmp) {
         this.idDetail = idDetail;
         this.date = date;
         this.idRoom = idRoom;
         this.idBill = idBill;
+        this.idEmp = idEmp;
+    }
+    public BillDetail(String selectedEmpl, Date selectedDate, String selectedEmpl_2, String selectedEmpl_1) {
+        //TODO Auto-generated constructor stub
     }
     public static long getSerialversionuid() {
         return serialVersionUID;
@@ -44,6 +50,12 @@ public class BillDetail implements Serializable {
     }
     public void setIdBill(String idBill) {
         this.idBill = idBill;
+    }
+    public String getIdEmp() {
+        return idEmp;
+    }
+    public void setIdEmp(String idEmp) {
+        this.idEmp = idEmp;
     }
 }
 
