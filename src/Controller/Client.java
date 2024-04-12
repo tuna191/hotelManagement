@@ -12,18 +12,24 @@ import Model.room.RoomInterface;
 import Model.Employees.Employee;
 import Model.Employees.EmployeeInterface;
 
+import Model.Customer.Customer;
+import Model.Customer.CustomerInterface;
+import Model.Customer.CustomerImplement;
 public class Client {
     private AdminInterface AdminMana ;
     private RoomInterface RoomMana;
+    private CustomerInterface CustomerMana;
 
     private EmployeeInterface EmployeeManager;
     public boolean isConnected() {
         return RoomMana != null;
         
     }
+
     public Client(){
         try {
             Registry registry = LocateRegistry.getRegistry("localhost",1009);
+            CustomerMana = (CustomerInterface) registry.lookup("Customer");
             RoomMana = (RoomInterface) registry.lookup("Room");
             AdminMana = (AdminInterface) registry.lookup("Admin");
             EmployeeManager = (EmployeeInterface) registry.lookup("employee");
@@ -113,20 +119,70 @@ public class Client {
     }
 
 
-    // rooms
-        public List<Room> getAllRooms() {
+// rooms
+public List<Room> getAllRooms() {
+    try {
+        // Gọi phương thức từ server để lấy danh sách sản phẩm
+        return RoomMana.getAllRoom();
+    } catch (RemoteException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+
+public boolean addRoomClient(Room s){
+    try {
+        return RoomMana.addRoom(s);
+    } catch (Exception e) {
+        // TODO: handle exception
+        e.printStackTrace();
+    }
+    return false;
+}
+
+public boolean updateRoomClient(Room s){
+    try {
+        return RoomMana.updateData(s);
+    } catch (Exception e) {
+        // TODO: handle exception
+        e.printStackTrace();
+    }
+    return false;
+}
+public boolean deleteRoomClient(String id){
+    try {
+        return RoomMana.deleteRoom(id);
+    } catch (Exception e) {
+        // TODO: handle exception
+        e.printStackTrace();
+    }
+    return false;
+}
+
+public List<Room> getRoomClient(String id){
+    try {
+        return RoomMana.getRoom(id);
+    } catch (Exception e) {
+        // TODO: handle exception
+        e.printStackTrace();
+    }
+
+    return null;
+} 
+
+        public List<Customer> getALLCustomers() {
         try {
             // Gọi phương thức từ server để lấy danh sách sản phẩm
-            return RoomMana.getAllRoom();
+            return CustomerMana.getAllCustomer();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public boolean addRoomClient(Room s){
+    public boolean addCustomers (Customer customer){
         try {
-            return RoomMana.addRoom(s);
+            return CustomerMana.addCustomer(customer);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -134,34 +190,35 @@ public class Client {
         return false;
     }
 
-    public boolean updateRoomClient(Room s){
+    public boolean updateCustomers(Customer customer){
         try {
-            return RoomMana.updateData(s);
+            return CustomerMana.updateCustomer(customer);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
         return false;
     }
-    public boolean deleteRoomClient(String id){
+    public boolean deleteCustomers(String id){
         try {
-            return RoomMana.deleteRoom(id);
+            return CustomerMana.removeCustomer(id);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
         return false;
     }
-
-    public List<Room> getRoomClient(String id){
+    public List<Customer> getIdCustomer(String id){
         try {
-            return RoomMana.getRoom(id);
+            return CustomerMana.getCustomer(id);
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
         }
-
         return null;
-    } 
+
 }
+}
+
+
 

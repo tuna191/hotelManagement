@@ -3,6 +3,7 @@ package Model.Customer;
 import java.io.Serializable;
 import java.sql.Date;
 
+
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
 
