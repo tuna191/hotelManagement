@@ -128,7 +128,7 @@ public class RoomForm extends JFrame {
         price.setBounds(583, 11, 344, 40);
         input.add(price);
         price.setColumns(10);
-
+        
         JPanel button = new JPanel();
         inputPanel.add(button);
         button.setLayout(null);

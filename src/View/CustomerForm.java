@@ -137,13 +137,13 @@ public class CustomerForm extends JFrame {
 
 
         JLabel lblNewLabel_4 = new JLabel("CMND");
-        lblNewLabel_4.setBounds(480, 102, 94, 53);
+        lblNewLabel_4.setBounds(24, 72, 86, 53);
         lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
-        input.add(lblNewLabel_2);
+        input.add(lblNewLabel_4);
 
         cmnd = new JTextField();
-        cmnd.setBounds(584, 0, 344, 60);
-        input.add(diachi);
+        cmnd.setBounds(146, 65, 322, 60);
+        input.add(cmnd);
         cmnd.setColumns(10);
 
         JLabel lblNewLabel_5 = new JLabel("SDT");

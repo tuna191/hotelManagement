@@ -37,7 +37,7 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             while (rs.next()) {
                 Bill bills = new Bill();
                 bills.setIdBill(rs.getString("idBill"));
-                bills.setDate(rs.getDate("date"));
+                bills.setDateTT(rs.getDate("date"));
                 bills.setPrice(rs.getDouble("price"));
                 bills.setIdEmp(rs.getString("idEmp"));
                
@@ -64,7 +64,7 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             while (rs.next()) {
                 Bill bills = new Bill();
                 bills.setIdBill(rs.getString("idBill"));
-                bills.setDate(rs.getDate("date"));
+                bills.setDateTT(rs.getDate("date"));
                 bills.setPrice(rs.getDouble("price"));
                 bills.setIdEmp(rs.getString("idEmp"));
             }
@@ -87,7 +87,7 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             String sql = "INSERT INTO bill Values(?,?,?,?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1,bill.getIdBill() );
-            stmt.setDate(2,bill.getDate() );
+            stmt.setDate(2,bill.getDateTT() );
             stmt.setDouble(3,bill.getPrice() );
             stmt.setString(4,bill.getIdEmp() );
             int rowsAffected = stmt.executeUpdate();
@@ -128,7 +128,7 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             conn = JDBC.getConnection();
             String sql = "UPDATE bill SET date = ? , price = ?  WHERE idBill = ? "; 
             stmt = conn.prepareStatement(sql);
-            stmt.setDate(1,bill.getDate());
+            stmt.setDate(1,bill.getDateTT());
             stmt.setDouble(2,bill.getPrice());
             int rowsAffected = stmt.executeUpdate();
             result = rowsAffected > 0;
