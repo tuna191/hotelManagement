@@ -142,12 +142,6 @@ public class CustomerImplement extends UnicastRemoteObject implements CustomerIn
 
         return result;
     }
-
-	@Override
-	public boolean removeCustomer(Customer idcustomer) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
-	}
     
 }
 
