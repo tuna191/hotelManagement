@@ -95,19 +95,19 @@ public class RoomForm extends JFrame {
         idEmplField.setBounds(24, 102, 86, 53);
         input.add(idEmplField);
 
-        // String[] empArr; // Declare empArr outside the loop
+        String[] empArr; // Declare empArr outside the loop
 
-        // List<Employee> empList = client.getEmployeeList(); // Use empList for clarity
+        List<Employee> empList = client.getAllEmployees(); // Use empList for clarity
 
-        // empArr = new String[empList.size()]; // Allocate memory for empArr
+        empArr = new String[empList.size()]; // Allocate memory for empArr
 
-        // int i = 0;
-        // for (Employee employee : empList) {
-        //     empArr[i++] = employee.getIdEmp(); // Add ID to empArr and increment index
-        // }
+        int i = 0;
+        for (Employee employee : empList) {
+            empArr[i++] = employee.getIdEmp(); // Add ID to empArr and increment index
+        }
 
-        String[] emplArr = { "", "1445", "222" };
-        employee = new JComboBox<>(emplArr);
+       
+        employee = new JComboBox<>(empArr);
         employee.setBounds(146, 104, 322, 60);
         input.add(employee);
 
