@@ -10,6 +10,7 @@ import Model.room.Room;
 import Model.room.RoomInterface;
 import Model.Customer.Customer;
 import Model.Customer.CustomerInterface;
+import Model.Customer.CustomerImplement;
 public class Client {
     private AdminInterface AdminMana ;
     private RoomInterface RoomMana;
