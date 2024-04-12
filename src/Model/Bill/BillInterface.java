@@ -1,4 +1,3 @@
-
 package Model.Bill;
 
 import java.rmi.Remote;
