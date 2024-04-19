@@ -126,6 +126,18 @@ public class MainForm extends JFrame {
                         SearchForm searchFrame = new SearchForm(client);
                         searchFrame.setVisible(true);
                         break;
+                    case "Khách Hàng":
+                        CustomerForm customerFrame = new CustomerForm(client);
+                        customerFrame.setVisible(true);
+                        break;
+                    case "Hóa đơn":
+                        BillForm billFrame = new BillForm(client);
+                        billFrame.setVisible(true);
+                        break;
+                    case "Chi tiết hóa đơn":
+                        BillDetailForm billDetailFrame = new BillDetailForm(client);
+                        billDetailFrame.setVisible(true);
+                        break;
                     default:
                         JOptionPane.showMessageDialog(MainForm.this, "Đã chọn: " + items[j]);
                         break;

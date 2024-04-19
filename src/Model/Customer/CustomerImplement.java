@@ -133,6 +133,8 @@ public class CustomerImplement extends UnicastRemoteObject implements CustomerIn
             stmt.setString(3,customer.getSex());
             stmt.setInt(4,customer.getIdentify());
             stmt.setInt(5,customer.getPhone());
+            stmt.setString(6,customer.getIdcustomer());
+
             int rowsAffected = stmt.executeUpdate();
             result = rowsAffected > 0;
         } catch (SQLException e) {

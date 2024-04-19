@@ -10,19 +10,15 @@ public class Bill implements Serializable {
     private Date dateTT;
     private Double price;
     private String idEmp;
-    private String idcustomer;
     public Bill() {
     }
-    public Bill(String idBill,Date dateTT, Double price,String idEmp,String idcustomer) {
+    public Bill(String idBill,Date dateTT, Double price,String idEmp) {
         this.idBill = idBill;
         this.dateTT = dateTT;
         this.price = price;
         this.idEmp = idEmp;
-        this.idcustomer = idcustomer;
     }
-    public Bill(String idHD, Date selectedDate, double priceData, String selectedEmpl) {
-        //TODO Auto-generated constructor stub
-    }
+
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
@@ -50,11 +46,6 @@ public class Bill implements Serializable {
     public void setIdEmp(String idEmp) {
         this.idEmp = idEmp;
     }
-    public String getIdcustomer() {
-        return idcustomer;
-    }
-    public void setIdCustomer(String idcustomer) {
-        this.idcustomer = idcustomer;
-    }
+
 }
 

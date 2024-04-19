@@ -2,8 +2,8 @@ package View;
 
 import java.util.List;
 
-import Model.room.Room;
-import Model.room.RoomImplement;
+import Model.Bill.Bill;
+import Model.Bill.BillImplement;
 
 import java.awt.*;
 import java.rmi.RemoteException;
@@ -27,15 +27,15 @@ public class App {
 
 
     public static void main(String[] args) throws Exception {
-       RoomImplement roomService =  new RoomImplement(); // Your implementation;
+       BillImplement roomService =  new BillImplement(); // Your implementation;
 
         try {
             // Call the getAllRoom() method
-            Room roomdetail = new Room("1222","normal","unvaliable",1223,"1234","1445");
-            boolean room = roomService.deleteRoom("1222");
+            // Bill roomdetail = new Bill("1222","normal","unvaliable",1223,"1234","1445");
+            List <Bill> room = roomService.getAllBill();
             
             // Check if any rooms were retrieved
-            if (room) {
+            if (room != null) {
                 System.out.println("Successfully retrieved rooms:");
                 
                 

@@ -71,7 +71,7 @@ public class CustomerForm extends JFrame {
     private void initialize() {
         // Khởi tạo JFrame hiện tại thay vì tạo một JFrame mới
         setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
@@ -95,7 +95,7 @@ public class CustomerForm extends JFrame {
         input.setLayout(null);
 
         JLabel lblNewLabel = new JLabel("Ma KH");
-        lblNewLabel.setBounds(24, 0, 86, 60);
+        lblNewLabel.setBounds(24, 0, 86, 40);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
         input.add(lblNewLabel);
 
@@ -115,7 +115,7 @@ public class CustomerForm extends JFrame {
         tenkh.setColumns(10);
 
         JLabel lblNewLabel_2 = new JLabel("Dia Chi");
-        lblNewLabel_2.setBounds(480, 102, 94, 53);
+        lblNewLabel_2.setBounds(480, 102, 94, 40);
         lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
         input.add(lblNewLabel_2);
 
@@ -125,24 +125,24 @@ public class CustomerForm extends JFrame {
         diachi.setColumns(10);
 
         JLabel lblNewLabel_3 = new JLabel("Gioi Tinh");
-        lblNewLabel_3.setBounds(24, 102, 86, 53);
+        lblNewLabel_3.setBounds(24, 102, 86, 40);
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.LEFT);
         input.add(lblNewLabel_3);
 
-        String[] kinds = { "", "Nam", "Nu" };
+        String[] kinds = { "", "female", "male" };
         kind = new JComboBox<>(kinds);
-        kind.setBounds(146, 104, 322, 60);
+        kind.setBounds(146, 104, 322, 40);
         input.add(kind);
 
 
 
         JLabel lblNewLabel_4 = new JLabel("CMND");
-        lblNewLabel_4.setBounds(24, 72, 86, 53);
+        lblNewLabel_4.setBounds(24, 65, 94, 40);
         lblNewLabel_4.setHorizontalAlignment(SwingConstants.LEFT);
         input.add(lblNewLabel_4);
 
         cmnd = new JTextField();
-        cmnd.setBounds(146, 65, 322, 60);
+        cmnd.setBounds(146, 65, 322, 40);
         input.add(cmnd);
         cmnd.setColumns(10);
 
@@ -161,7 +161,7 @@ public class CustomerForm extends JFrame {
         button.setLayout(null);
 
         add = new JButton("Them moi");
-        add.setBounds(65, 49, 130, 40);
+        add.setBounds(67, 49, 130, 40);
         button.add(add);
 
         
@@ -193,7 +193,7 @@ public class CustomerForm extends JFrame {
             }
         });
         update = new JButton("Luu");
-        update.setBounds(254, 49, 130, 40);
+        update.setBounds(256, 49, 130, 40);
         button.add(update);
 
         update.addActionListener(new ActionListener() {
@@ -223,7 +223,7 @@ public class CustomerForm extends JFrame {
             }
         });
         delete = new JButton("Xoa");
-        delete.setBounds(459, 49, 130, 40);
+        delete.setBounds(461, 49, 130, 40);
         button.add(delete);
 
         delete.addActionListener(new ActionListener() {
@@ -249,7 +249,7 @@ public class CustomerForm extends JFrame {
         });
 
         select = new JButton("Tim kiem");
-        select.setBounds(677, 49, 130, 40);
+        select.setBounds(679, 49, 130, 40);
         button.add(select);
 
         select.addActionListener(new ActionListener() {

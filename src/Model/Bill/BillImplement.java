@@ -37,7 +37,7 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             while (rs.next()) {
                 Bill bills = new Bill();
                 bills.setIdBill(rs.getString("idBill"));
-                bills.setDateTT(rs.getDate("date"));
+                bills.setDateTT(rs.getDate("datePay"));
                 bills.setPrice(rs.getDouble("price"));
                 bills.setIdEmp(rs.getString("idEmp"));
                
@@ -51,7 +51,7 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
 
     @Override
     public List<Bill> getAllBill() throws RemoteException {
-        List<Bill> bill = new ArrayList<Bill>();
+        List<Bill> billList = new ArrayList<Bill>();
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -64,16 +64,18 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
             while (rs.next()) {
                 Bill bills = new Bill();
                 bills.setIdBill(rs.getString("idBill"));
-                bills.setDateTT(rs.getDate("date"));
+                bills.setDateTT(rs.getDate("datePay"));
                 bills.setPrice(rs.getDouble("price"));
                 bills.setIdEmp(rs.getString("idEmp"));
+
+                billList.add(bills);
             }
         } catch (SQLException e) {
             // TODO: handle exception
             e.printStackTrace();
         }
 
-        return bill;
+        return billList;
     }
 
     @Override
@@ -126,10 +128,14 @@ public class BillImplement extends UnicastRemoteObject implements BillInterface 
         boolean result = false;
         try {
             conn = JDBC.getConnection();
-            String sql = "UPDATE bill SET date = ? , price = ?  WHERE idBill = ? "; 
+            String sql = "UPDATE bill SET datePay = ? , price = ? , idEmp = ?  WHERE idBill = ? "; 
             stmt = conn.prepareStatement(sql);
             stmt.setDate(1,bill.getDateTT());
             stmt.setDouble(2,bill.getPrice());
+            stmt.setString(3,bill.getIdEmp());
+            stmt.setString(4,bill.getIdBill());
+
+
             int rowsAffected = stmt.executeUpdate();
             result = rowsAffected > 0;
         } catch (SQLException e) {

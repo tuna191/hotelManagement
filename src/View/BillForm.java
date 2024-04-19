@@ -46,7 +46,7 @@ public class BillForm extends JFrame {
     private void initialize() {
         // Khởi tạo JFrame hiện tại thay vì tạo một JFrame mới
         setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
@@ -70,17 +70,17 @@ public class BillForm extends JFrame {
         input.setLayout(null);
 
         JLabel lblNewLabel = new JLabel("Ma HD");
-        lblNewLabel.setBounds(24, 0, 86, 60);
+        lblNewLabel.setBounds(24, 5, 86, 60);
         lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
         input.add(lblNewLabel);
 
         mahd = new JTextField();
-        mahd.setBounds(146, 11, 320, 40);
+        mahd.setBounds(146, 16, 320, 40);
         input.add(mahd);
         mahd.setColumns(10);
 
-        JLabel lblNewLabel_1 = new JLabel("Ngay TT");
-        lblNewLabel_1.setBounds(478, 0, 73, 60);
+        JLabel lblNewLabel_1 = new JLabel("Ngay thanh toán");
+        lblNewLabel_1.setBounds(478, 5, 73, 60);
         input.add(lblNewLabel_1);
 
         UtilDateModel model = new UtilDateModel();
@@ -90,7 +90,7 @@ public class BillForm extends JFrame {
         properties.put("text.year", "Year");
         JDatePanel datePanel = new JDatePanelImpl(model, properties);
         datepay = new JDatePickerImpl((JDatePanelImpl) datePanel, new DateLabelFormatter());
-        datepay.setBounds(583, 11, 344, 40); // Thiết lập vị trí và kích thước
+        datepay.setBounds(583, 16, 344, 40); // Thiết lập vị trí và kích thước
         input.add(datepay);
 
         JLabel lblNewLabel_2 = new JLabel("So Tien");
@@ -140,7 +140,7 @@ public class BillForm extends JFrame {
                     Date selectedDate = new Date(((java.util.Date) datepay.getModel().getValue()).getTime());
                     double priceData = Double.parseDouble(sotien.getText());
                     String selectedEmpl = (String) employee.getSelectedItem();
-                    Bill bill = new Bill (idHD,selectedDate,priceData,selectedEmpl);
+                    Bill bill = new Bill(idHD,selectedDate,priceData,selectedEmpl);
 
                     boolean addMethod = client.addBills(bill);
                     if (addMethod) {
